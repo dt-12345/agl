@@ -1,6 +1,9 @@
 #pragma once
 
+#include <nn/gfx/gfx_DescriptorSlot.h>
+#include <nn/gfx/gfx_Types.h>
 #include <prim/seadSafeString.h>
+#include "common/aglGPUMemAddr.h"
 #include "detail/aglSurface.h"
 #include "driver/aglNVNtexture.h"
 
@@ -41,16 +44,16 @@ public:
     void getDebugLabel() const;
 
 private:
-    void* _0;
-    u32 _8;
-    u32 _c;
-    void* _10;
-    void* _18;
-    void* _20;
-    void* _28;
+    GPUMemAddr<u8> mGpuMemAddr[2];
     detail::Surface mSurface;
-    TextureFormat mTextureFormat;
-    u8 _58[0x120 - 0x58];
+    driver::NVNtexture_ mTexture;
+    char _68[0x20];
+    nn::gfx::TextureView* mTextureView;
+    nn::gfx::DescriptorSlot mDescriptorSlot;
+    char _98[8];
+    sead::SizedEnum<TextureFormat, u8> mImageFormat;
+    u8 mState;
+    u8 _A2;
     const char* mDebugLabel;  // "agl::TextureData string"
 };
 

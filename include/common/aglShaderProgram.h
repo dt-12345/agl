@@ -1,6 +1,8 @@
 #pragma once
 
+#include <container/seadBuffer.h>
 #include <prim/seadSafeString.h>
+#include <nn/gfx/gfx_BufferInfo.h>
 #include "common/aglDisplayList.h"
 #include "common/aglShader.h"
 
@@ -33,33 +35,21 @@ public:
     void createVariation(sead::Heap*);
 
 private:
-    u64* _8;
-    DisplayList mShaderDisplayList;  // _10
-    u32 _278;
-    u32 _27c;
-    void* _280;
-    u32 _288;
-    u32 _28c;
-    void* _290;
-    u32 _298;
-    u32 _29c;
-    void* _2a0;
-    u32 _2a8;
-    u32 _2ac;
-    void* _2b0;
-    u32 _2b8;
-    u32 _2bc;
-    void* _2c0;
-    u32 _2c8;
-    u32 _2cc;
-    void* _2d0;
-    VertexShader mVertexShader;
-    FragmentShader mFragmentShader;
-    GeometryShader mGeometryShader;
-    ComputeShader mComputeShader;
-    u8 _358[0x418 - 0x358];  // todo; what is here?
-    void* _418;
-    u32 _420;
+    VariationBuffer* mVariation;
+    DisplayListBase mShaderDisplayList;  // _10
+    char _10[0x10];
+    u8 _20;
+    u8 _21;
+    u16 mVariationIndex;
+    u16 _24;
+    u16 _26;
+    char _28[0x20];
+    sead::Buffer<nn::gfx::BufferInfo> mUniformBlockArray;
+    sead::Buffer<nn::gfx::BufferInfo> mSSBOArray;
+    sead::Buffer<nn::gfx::BufferInfo> mSamplerLocationArray;
+    char _78[0xd0];
+    u64 mBufferAddress;
+    char _150[8];
 };
 
 }  // namespace agl

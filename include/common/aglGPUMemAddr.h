@@ -22,8 +22,8 @@ public:
     void invalidateCPUCache(u64);
 
 private:
-    detail::MemoryPool* mMemoryPool;
-    int mAlignmentAddr;
+    u32 mOffset;
+    NVNmemoryPool* mNvnMemoryPool;
     GPUMemBlockBase* mMemoryBlock;
 };
 

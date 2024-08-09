@@ -3,6 +3,7 @@
 #include <nvn/nvn.h>
 #include <basis/seadTypes.h>
 #include "common/aglTextureEnum.h"
+#include "prim/seadSizedEnum.h"
 
 namespace agl::detail {
 
@@ -20,21 +21,19 @@ public:
     void copyFrom(const NVNtexture&);
 
 private:
-    u16 _0;
-    u16 _2;
-    u16 _4;
-    u16 _6;
-    u8 _8;
-    u8 _9;
-    u16 _a;
-    u8 _c[0x1A - 0xC];
-    u8 _1a;
-    u8 _1b;
-    u32 _1c;
-    u8 _20;
-    u8 _21;
-    u8 _22;
-    u8 _23;
+    u16 mWidth;
+    u16 mHeight;
+    u16 mDepth;
+    sead::SizedEnum<TextureFormat, u16> mFormat;
+    u8 mSamples;
+    u8 mLevels;
+    u16 mTarget;
+    size_t mStorageSize;
+    int mStorageAlignment;
+    int _1C;
+    u8 mNvnSwizzle[4];
+    u16 mFlags;
+    u16 mStride;
 };
 
 struct SurfaceBase {

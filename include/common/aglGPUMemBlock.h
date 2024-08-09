@@ -9,6 +9,10 @@
 #include <thread/seadCriticalSection.h>
 #include "common/aglGPUCommon.hpp"
 
+namespace sead {
+class Heap;
+} // namespace sead
+
 namespace agl {
 
 namespace detail {
@@ -39,14 +43,15 @@ public:
 
 private:
     void* mMemoryBuffer;
-    u64 mMemoryBufferSize;
-    detail::MemoryPool* mpMemoryPool;
+    detail::MemoryPool* mMemoryPool;
+    sead::Heap* mHeap;
     detail::MemoryPoolHeap* mMemoryPoolHeap;
-    uint8_t mFlags;
-    GPUMemBlockBase* mpTail;
+    char _28[8];
+    u64 mMemoryBufferSize;
+    u16 mMemoryAttribute;
+    u8 _3A;
 };
-
-static_assert(sizeof(GPUMemBlockBase) == 0x38);
+static_assert(sizeof(GPUMemBlockBase) == 0x40);
 
 // TODO
 template <typename T>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <nvn/nvn.h>
+#include <container/seadListImpl.h>
 #include <container/seadPtrArray.h>
 #include <heap/seadDisposer.h>
 #include <hostio/seadHostIONode.h>
@@ -9,6 +10,7 @@
 #include <prim/seadTypedBitFlag.h>
 #include <thread/seadCriticalSection.h>
 #include "common/aglGPUCommon.hpp"
+#include "common/aglGPUMemBlock.h"
 
 namespace agl::detail {
 
@@ -51,7 +53,7 @@ private:
 };
 static_assert(sizeof(MemoryPool) == 0x108);
 
-class GPUMemBlockMgrHeapEx : public sead::hostio::Node, public sead::IDisposer {
+class GPUMemBlockMgrHeapEx : public sead::IDisposer {
 public:
     GPUMemBlockMgrHeapEx(sead::Heap* p_heap);
     ~GPUMemBlockMgrHeapEx() override;
@@ -59,12 +61,16 @@ public:
     void finalize();
 
 private:
-    s32 mAllowSharing;
-    void* m08;
-    void* m10;
+    u8 _20[4];
+    u32 _24;
+    sead::ListImpl _28;
+    sead::ListImpl mMemoryPoolHeapList;
     sead::CriticalSection mCS;
+    char _78[0x10];
+    u32 _88;
+    u32 _8C;
 };
-static_assert(sizeof(GPUMemBlockMgrHeapEx) == 0x80);
+static_assert(sizeof(GPUMemBlockMgrHeapEx) == 0x90);
 
 enum class GPUMemBlockMgrFlags : u8 {
     MemoryPoolRelated = 1 << 0,
@@ -72,11 +78,14 @@ enum class GPUMemBlockMgrFlags : u8 {
     Debug = 1 << 2
 };
 
-class GPUMemBlockMgr : public sead::hostio::Node {
-    SEAD_SINGLETON_DISPOSER(GPUMemBlockMgr)
+class GPUMemBlockMgr {
 public:
     GPUMemBlockMgr();
     virtual ~GPUMemBlockMgr();
+
+    GPUMemBlockMgrHeapEx* createGPUMemBlockMgrHeapEx(sead::Heap*);
+    bool tryAllocMemory(GPUMemBlockBase* block, sead::Heap* heap, size_t size, int alignment,
+                        MemoryAttribute mem_attr, size_t min_size, const char* name, bool);
 
     void initialize(sead::Heap* heap1, sead::Heap* heap2);
     void enableSharedMemoryPool(bool enabled);
@@ -95,7 +104,16 @@ private:
     sead::PtrArray<GPUMemBlockMgrHeapEx> mMngrHeaps;
     size_t mMinBlockSize;
     sead::TypedBitFlag<GPUMemBlockMgrFlags> mFlags;
+    u32 _44;
+    u32 mMemoryPoolIndexIter;
+    u32 _4C;
+    char _50[8];
+    u32 _58;  // 0x20
+    u32 _5C;
+    char _60[0x20];
+
+    SEAD_SINGLETON_DISPOSER(GPUMemBlockMgr)
 };
-static_assert(sizeof(GPUMemBlockMgr) == 0x88);
+static_assert(sizeof(GPUMemBlockMgr) == 0xa0);
 
 }  // namespace agl::detail

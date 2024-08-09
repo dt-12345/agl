@@ -1,11 +1,13 @@
 project(agl CXX ASM)
 
 add_library(agl OBJECT
+  include/common/aglCompactibleHeap.h
   include/common/aglDisplayList.h
   include/common/aglDrawContext.h
   include/common/aglGPUCommon.hpp
   include/common/aglGPUMemAddr.h
   include/common/aglGPUMemBlock.h
+  include/common/aglHeap.h
   include/common/aglRenderBuffer.h
   include/common/aglRenderTarget.h
   include/common/aglResBinaryShaderArchive.h
@@ -23,9 +25,15 @@ add_library(agl OBJECT
   include/common/aglShaderEnum.h
   include/common/aglShaderProgram.h
   include/common/aglShaderProgramArchive.h
+  include/common/aglTexture.h
+  include/common/aglTextureCompactionJob.h
+  include/common/aglTextureCompactionMgr.h
   include/common/aglTextureData.h
+  include/common/aglTextureDataMgr.h
   include/common/aglTextureDataSerializer.h
   include/common/aglTextureEnum.h
+
+  include/cull/aglOcclusionQuery.h
 
   include/detail/aglFileIOMgr.h
   include/detail/aglGPUMemBlockMgr.h
@@ -50,7 +58,13 @@ add_library(agl OBJECT
 
   include/effect/aglFxOfxLensFlare.h
 
-  include/g3d/aglNW4FToNN.h
+  include/g3d2/aglNW4FToNN.h
+
+  include/lyr/aglLayer.h
+  include/lyr/aglRenderContext.h
+  include/lyr/aglRenderDisplay.h
+  include/lyr/aglRenderDL.h
+  include/lyr/aglRenderer.h
 
   include/postfx/aglBloom.h
   include/postfx/aglDepthOfField.h
@@ -72,6 +86,8 @@ add_library(agl OBJECT
   include/utility/aglParameterStringMgr.h
   include/utility/aglResParameter.h
   include/utility/aglScreenShotMgr.h
+
+  include/vfx/aglPtclSystem.h
   
   src/detail/aglGPUMemBlockMgr.cpp
 

@@ -402,7 +402,7 @@ public:
 
 protected:
     std::array<sead::hostio::Curve<f32>, N> mCurves;
-    std::array<sead::hostio::CurveData, N> mCurveData;
+    std::array<f32*, N> mCurveData; // needs verification but don't think totk uses this at all
 };
 
 inline ResParameter getResParameter(const agl::utl::ResParameterObj& obj,

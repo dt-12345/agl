@@ -9,16 +9,19 @@ class Heap;
 
 namespace agl {
 
-class DisplayList {
+class CommandBufferImpl;
+
+// TODO: verify the methods
+class DisplayListBase {
 public:
-    DisplayList();
-    virtual ~DisplayList();
+    DisplayListBase();
+    virtual ~DisplayListBase();
 
     void setControlMemory(void* memory, s32 size);
     void clear();
     void setBuffer(GPUMemAddr<u8> buffer, u64 size);
     void setValidSize(u64 size);
-    void copyTo(DisplayList* other) const;
+    void copyTo(DisplayListBase* other) const;
     void beginDisplayList();
     void endDisplayList();
     bool beginDisplayListBuffer(GPUMemAddr<u8> addr, u64 size, bool invalidate_cpu);
@@ -33,16 +36,22 @@ public:
 private:
     GPUMemAddr<u8> mBuffer;
     u32 mUsedSize;
-    u32 _24;
-    u32 mSize;
-    u32 _2c;
-    u64 _30;
+    u32 mUsedCommandMemorySize;
+    char* mName;
+    CommandBufferImpl* mCommandBuffer;
     void* mControlMemory;
-    u8 _40[0x248 - 0x40];    // todo; what is here?
-    u32 mControlMemorySize;  // init'd to 0x200
-    u32 _24c;
-    void* _250;  // only accessed for calls on `pfnc_nvnCommandBuffer...`
-    const char* mDisplayName;
+    u32 mControlMemorySize;
+    u32 mUsedControlMemory;
+    void* mLastCommandList;
+    u8 _50;
+};
+
+class DisplayList : DisplayListBase {
+public:
+    ~DisplayList() override;
+
+private:
+    char _58[0x208];
 };
 
 }  // namespace agl

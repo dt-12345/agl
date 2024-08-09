@@ -5,7 +5,7 @@
 
 namespace agl {
 class DrawContext;
-class DisplayList;
+class DisplayListBase;
 }  // namespace agl
 
 namespace agl::driver {
@@ -22,7 +22,7 @@ public:
     void setPointSize(agl::DrawContext* draw_context, float point_size) const;
     void setLineWidth(agl::DrawContext* draw_context, float line_width) const;
 
-    agl::DisplayList* getDefaultCommandBuffer();
+    agl::DisplayListBase* getDefaultCommandBuffer();
 
 #ifdef SEAD_DEBUG
     void listenPropertyEvent(const sead::hostio::PropertyEvent* event) override;
@@ -33,7 +33,7 @@ protected:
     void initialize_(sead::Heap p_heap);
 
 private:
-    agl::DisplayList* mDefaultCommandBuffer;
+    agl::DisplayListBase* mDefaultCommandBuffer;
     void* _30;
 };
 

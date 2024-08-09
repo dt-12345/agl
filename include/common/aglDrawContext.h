@@ -8,7 +8,7 @@
 namespace agl {
 
 class RenderBuffer;
-class DisplayList;
+class DisplayListBase;
 enum ShaderMode {};
 enum ShaderOptimizeType {};
 
@@ -18,7 +18,7 @@ public:
     DrawContext();
     ~DrawContext() override;
 
-    void setCommandBuffer(DisplayList* buffer);
+    void setCommandBuffer(DisplayListBase* buffer);
     void flushCommandBuffer();
     void setBoundRenderBuffer(const RenderBuffer* buffer);
     void barrierTexture(u32 flags);
@@ -30,7 +30,7 @@ public:
 
 private:
     void* gap[5];
-    DisplayList* mCommandBuffer;
+    DisplayListBase* mCommandBuffer;
     const RenderBuffer* mBoundRenderBuffer;
     u8 _100;
     ShaderMode mShaderMode;

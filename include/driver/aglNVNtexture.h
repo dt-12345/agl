@@ -7,6 +7,7 @@ namespace agl::driver {
 
 class NVNtexture_ {
 public:
+    // these are probably no longer accurate
     NVNtexture_();
     NVNtexture_(const NVNtexture_& other);
     ~NVNtexture_();
@@ -19,12 +20,8 @@ public:
     void setReference_() const;
 
 private:
-    NVNtexture mTexture;
     s32 mTextureID;
-    u8 _c4;
-    u8 _c5;
-    u8 _c6;
-    u8 _c7;
+    int _04[3];
 };
 
 }  // namespace agl::driver

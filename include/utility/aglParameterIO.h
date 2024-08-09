@@ -38,10 +38,10 @@ protected:
 
     sead::FixedSafeString<64> mType;
     u32 mVersion;
-    void* _a8 = nullptr;
-    sead::FixedSafeString<256> _b0 = sead::SafeString::cEmptyString;
+    void* _A0 = nullptr;
+    sead::FixedSafeString<256> _A8 = sead::SafeString::cEmptyString;
     u32 mResFileSize = 0;
-    u32 _1cc;
+    u32 _1BC;
 };
 
 }  // namespace agl::utl

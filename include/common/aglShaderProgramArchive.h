@@ -15,7 +15,7 @@ class ShaderProgram;
 class ShaderProgramEdit;
 class ShaderSource;
 
-class ShaderProgramArchive : public sead::IDisposer, public sead::hostio::Node {
+class ShaderProgramArchive : public sead::IDisposer {
 public:
     ShaderProgramArchive();
     virtual ~ShaderProgramArchive();
@@ -36,13 +36,8 @@ private:
     ResBinaryShaderArchive mBinaryShaderArchive;
     ResShaderArchive mResShaderArchive;
     sead::Buffer<ShaderProgram> mShaderPrograms;
-    void* _48[6];
-    short _78[2];
-    sead::Buffer<ShaderProgramEdit> mShaderProgramEdits;
-    sead::Buffer<ShaderSource> mShaderSources;
-    sead::Buffer<void*> unkData;
-    sead::Buffer<bool*> unkData2;
+    char _40[0x48];
 };
-static_assert(sizeof(ShaderProgramArchive) == 0xC0);
+static_assert(sizeof(ShaderProgramArchive) == 0x88);
 
 }  // namespace agl
